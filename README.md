@@ -47,40 +47,25 @@ hand back a receipt URL. That's the proof artifact.
 
 Each app's README has the suggested prompt + expected outcome.
 
-## How to contribute findings
+## Send us back what you saw
 
-1. **Fork** the repo on GitHub.
-2. **Create a branch** named for yourself, e.g. `jane-doe/stripe`.
-3. **Copy** [FINDINGS_TEMPLATE.md](FINDINGS_TEMPLATE.md) into the
-   `findings/` folder. Name your file using the pattern:
-   ```
-   findings/<YYYY-MM-DD>-<app>-<your-github-username>.md
-   ```
-   e.g. `findings/2026-06-24-stripe-jane-doe.md`.
-4. **Fill it in** with the prompt, the agent's tool-call sequence, the
-   receipt URLs you got back (or "none" if the agent never produced any),
-   the bug + fix, and an honest 1–10 rating of the brain. See
-   [findings/EXAMPLE-2026-06-24-stripe-example-contributor.md](findings/EXAMPLE-2026-06-24-stripe-example-contributor.md)
-   for the shape.
-5. **Open a PR** against `main`. Once merged it shows up on your GitHub
-   contribution graph and on the
-   [contributors](https://github.com/fetchsandbox/playground/graphs/contributors)
-   page.
+When you're done running the demo, paste this to your agent:
 
-**Filename pattern matters** — the `<date>-<app>-<username>` shape makes
-contributor diversity visible at a glance and keeps date/app/author
-searchable. PRs that don't follow the pattern will be asked to rename
-before merge.
+```
+save my session as a findings markdown file at findings/<today's date>-<app>-<my-github-username>.md, commit on a new branch named for me, push it.
+```
 
-What we want to learn:
-- Did the brain match the right bug pattern?
-- Was the receipt URL convincing as proof, or did it feel hand-wavy?
-- What did your agent do well / badly?
-- What was missing?
+The agent writes the file from the session it just ran and pushes the branch.
+Open a PR from GitHub. We do the analysis.
 
-**Honest negative findings are more valuable than green-checkmark ones.**
-If your session failed or the receipt was misleading, write that up — that's
-the most useful PR you can ship.
+Prefer to do it by hand? Copy [FINDINGS_TEMPLATE.md](FINDINGS_TEMPLATE.md)
+into `findings/`, fill it in, push.
+
+Honest "it didn't work" is more useful than a green-checkmark write-up.
+
+Merged PRs appear on your GitHub contribution graph and on the
+[contributors](https://github.com/fetchsandbox/playground/graphs/contributors)
+page.
 
 ## License
 
