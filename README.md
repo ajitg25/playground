@@ -49,17 +49,18 @@ Each app's README has the suggested prompt + expected outcome.
 
 ## Send us back what you saw
 
-When you're done running the demo, paste this to your agent:
+1. **Fork the repo:** [github.com/fetchsandbox/playground/fork](https://github.com/fetchsandbox/playground/fork) (one click).
+2. After running the demo, paste this to your agent:
 
-```
-save my session as a findings markdown file at findings/<today's date>-<app>-<my-github-username>.md, commit on a new branch named for me, push it.
-```
+   ```
+   save my session as a findings markdown file at findings/<today's date>-<app>-<my-github-username>.md, commit on a new branch named for me, push to my fork.
+   ```
 
-The agent writes the file from the session it just ran and pushes the branch.
-Open a PR from GitHub. We do the analysis.
+   The agent writes the file from the session it just ran and pushes the branch to your fork.
+3. **Open a PR** from your fork against `main` on this repo.
 
 Prefer to do it by hand? Copy [FINDINGS_TEMPLATE.md](FINDINGS_TEMPLATE.md)
-into `findings/`, fill it in, push.
+into `findings/` in your fork, fill it in, commit, push, PR.
 
 Honest "it didn't work" is more useful than a green-checkmark write-up.
 
