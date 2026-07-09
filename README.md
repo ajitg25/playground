@@ -10,6 +10,8 @@
 
 Clone, run, point your agent at it, see whether FetchSandbox catches the bug.
 
+**👉 New here? Start with [TESTING.md](TESTING.md)** — a 20-minute, two-task test drive (prove a fresh integration + catch a planted bug).
+
 ## What's in here
 
 | App | Stack | What's broken |
