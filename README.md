@@ -18,6 +18,7 @@ Clone, run, point your agent at it, see whether FetchSandbox catches the bug.
 | [apps/clerk](apps/clerk) | FastAPI + Clerk auth | Session token validation skipped on one endpoint. |
 | [apps/agentmail](apps/agentmail) | FastAPI + AgentMail | Inbox webhook handler ignores `message.received` events when the body has attachments. |
 | [apps/surge](apps/surge) | FastAPI + Surge messaging | Outbound SMS retry on rate-limit hits an off-by-one and re-sends to the wrong number. |
+| [apps/descope](apps/descope) | FastAPI + Descope agentic auth | Access-key exchange trusts client-requested scopes — a read-only agent key can escalate to `users:write`. |
 
 Each app is ~50–150 lines of Python, runs locally in seconds.
 
