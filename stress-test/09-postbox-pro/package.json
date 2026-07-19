@@ -1,0 +1,15 @@
+{
+  "name": "postbox-pro",
+  "version": "1.4.0",
+  "private": true,
+  "description": "Transactional + lifecycle email on Resend",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.22.2",
+    "resend": "^3.5.0"
+  }
+}

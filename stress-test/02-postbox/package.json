@@ -1,0 +1,13 @@
+{
+  "name": "postbox",
+  "version": "1.0.0",
+  "description": "Transactional email service on Resend",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "resend": "^4.0.0"
+  }
+}

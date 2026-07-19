@@ -1,0 +1,13 @@
+{
+  "name": "workspace-auth",
+  "version": "1.0.0",
+  "description": "Workspace backend — Descope-authenticated session API",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "@descope/node-sdk": "^1.6.4",
+    "express": "^4.19.2"
+  }
+}

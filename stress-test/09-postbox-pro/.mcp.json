@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "fetchsandbox": {
+      "command": "npx",
+      "args": ["-y", "@fetchsandbox/mcp"],
+      "env": {
+        "FETCHSANDBOX_API_KEY": "${FETCHSANDBOX_API_KEY}"
+      }
+    }
+  }
+}

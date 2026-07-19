@@ -1,0 +1,13 @@
+{
+  "name": "agent-inbox",
+  "version": "1.0.0",
+  "description": "Support agent email inbox backed by AgentMail",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "agentmail": "^0.0.35",
+    "express": "^4.19.2"
+  }
+}

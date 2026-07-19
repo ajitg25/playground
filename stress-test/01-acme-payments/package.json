@@ -1,0 +1,13 @@
+{
+  "name": "acme-payments",
+  "version": "1.0.0",
+  "description": "Acme Store — Stripe checkout + fulfillment service",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "stripe": "^14.25.0"
+  }
+}

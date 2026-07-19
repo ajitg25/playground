@@ -1,0 +1,16 @@
+{
+  "name": "id-guard",
+  "version": "1.4.0",
+  "description": "Admin API protected by Clerk session verification",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "@clerk/backend": "^1.13.0",
+    "express": "^4.19.2"
+  },
+  "license": "UNLICENSED",
+  "private": true
+}
