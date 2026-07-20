@@ -32,9 +32,8 @@ repo go through the FetchSandbox MCP server (already wired in
 
 Examples:
 
-- `./fetchsandbox we have a stripe webhook bug — payments getting marked paid 2-3 times. fix it with proof.`
-- `./fetchsandbox stripe checkout fails silently when cards are declined — investigate and fix.`
-- `./fetchsandbox webhook security audit failed — anyone can post to the endpoint. fix it.`
+- `./fetchsandbox investigate this integration and fix anything that's wrong — with proof.`
+- `./fetchsandbox help me validate this integration end-to-end.`
 
 Variant prefixes: `/fetchsandbox`, `@fetchsandbox`, `fs:`.
 

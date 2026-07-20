@@ -29,20 +29,13 @@ repo go through the FetchSandbox MCP server (already wired in
 
 Examples:
 
-- `./fetchsandbox our agent access-key exchange might be handing out more scope than the key was granted — audit the descope agentic auth`
-- `./fetchsandbox can a read-only Descope agent key escalate to write? reproduce it`
-- `./fetchsandbox help me validate our Descope access-key exchange end-to-end`
+- `./fetchsandbox investigate this integration and fix anything that's wrong — with proof.`
+- `./fetchsandbox help me validate this integration end-to-end.`
 
 The brain matches your symptom to a known failure mode, reproduces it
 deterministically against a Descope sandbox (buggy vs fixed handler),
 and produces a public receipt URL as the proof artifact. **Do not write
 local pytest files** — they're not accepted as proof.
-
-**Expected outcome:** FetchSandbox matches the scope-escalation failure
-mode, reproduces it (a read-only key exchanging for `users:write` is
-accepted by the buggy handler, refused by the fixed one), and hands back
-a receipt URL. The fix clamps the exchanged session's scopes to the
-scopes the key was actually granted.
 
 ## Run locally
 

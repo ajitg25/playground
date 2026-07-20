@@ -33,18 +33,22 @@ Paste to your agent:
 ## Task 2 — Find the bug (brownfield)
 
 **App:** [`apps/descope`](apps/descope) — "Agent Gateway", where AI agents
-exchange a Descope access key for a scoped session. It has a planted flaw.
+exchange a Descope access key for a scoped session. Something in this
+integration is wrong. Go in cold — don't read ahead, don't guess: let the agent
+investigate and see what it turns up.
 
 Paste to your agent:
 
 ```
-./fetchsandbox our agent access-key exchange might be handing out more scope than the key was granted — audit the descope agentic auth
+./fetchsandbox something's off with this descope integration — investigate it, fix whatever is wrong, and prove it.
 ```
 
 **What to watch for:**
-- Did it **find + reproduce** the bug (a read-only key escalating to `users:write`)?
+- Did it **investigate the actual code** rather than assume a failure mode?
+- Did it **reproduce** what it claims is wrong, instead of just asserting it?
+- Did it **prove it with a receipt URL** *before* writing any fix code?
 - Does the proof show **buggy vs fixed** on **Descope routes** (`/v1/...`)?
-- Is there a **receipt URL** as the proof artifact?
+- If it found nothing, did it say so honestly — or invent something?
 
 ## What we most want to know (be blunt)
 

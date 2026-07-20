@@ -14,15 +14,20 @@ Clone, run, point your agent at it, see whether FetchSandbox catches the bug.
 
 ## What's in here
 
-| App | Stack | What's broken |
-|---|---|---|
-| [apps/stripe](apps/stripe) | FastAPI + Stripe SDK | Webhook dedup uses the wrong header — same event gets processed 2–3x on retry. |
-| [apps/resend](apps/resend) | FastAPI + Resend webhooks | Handler only listens for `email.delivered`. Bounces + complaints silently dropped; users stay "active" after bouncing. |
-| [apps/clerk](apps/clerk) | FastAPI + Clerk auth | Session token validation skipped on one endpoint. |
-| [apps/agentmail](apps/agentmail) | FastAPI + AgentMail | Inbox webhook handler ignores `message.received` events when the body has attachments. |
-| [apps/surge](apps/surge) | FastAPI + Surge messaging | Outbound SMS retry on rate-limit hits an off-by-one and re-sends to the wrong number. |
-| [apps/descope](apps/descope) | FastAPI + Descope agentic auth | Access-key exchange trusts client-requested scopes — a read-only agent key can escalate to `users:write`. |
-| [apps/descope-onboarding](apps/descope-onboarding) | FastAPI + Descope (greenfield) | Nothing broken — auth is a placeholder. Prove + wire Descope OTP sign-up from scratch. |
+| App | Stack |
+|---|---|
+| [apps/stripe](apps/stripe) | FastAPI + Stripe SDK |
+| [apps/resend](apps/resend) | FastAPI + Resend webhooks |
+| [apps/clerk](apps/clerk) | FastAPI + Clerk auth |
+| [apps/agentmail](apps/agentmail) | FastAPI + AgentMail |
+| [apps/surge](apps/surge) | FastAPI + Surge messaging |
+| [apps/descope](apps/descope) | FastAPI + Descope agentic auth |
+| [apps/descope-onboarding](apps/descope-onboarding) | FastAPI + Descope (greenfield — auth is a placeholder) |
+
+Every app except `apps/descope-onboarding` is a brownfield integration with a
+planted bug — what the bug is, is for you (and your agent) to discover.
+`apps/descope-onboarding` is the greenfield case: nothing is broken there, the
+task is to wire the integration from scratch.
 
 Each app is ~50–150 lines of Python, runs locally in seconds.
 
@@ -44,13 +49,13 @@ wired to FetchSandbox.
 Then ask your agent:
 
 ```
-./fetchsandbox we have a stripe webhook bug — payments getting marked paid 2-3 times. fix it with proof.
+./fetchsandbox something's off with our stripe integration — investigate, fix it, and prove it.
 ```
 
 The agent will call FetchSandbox's brain, pick a workflow, run it, and
 hand back a receipt URL. That's the proof artifact.
 
-Each app's README has the suggested prompt + expected outcome.
+Each app's README describes what the app does and how to run it.
 
 ## Send us back what you saw
 
