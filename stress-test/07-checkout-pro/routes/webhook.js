@@ -18,7 +18,6 @@ router.post('/webhook', async (req, res) => {
     return res.json({ received: true, ignored: event.type });
   }
 
-  // Skip anything we've already processed so retries don't double-charge.
   if (dedupe.has(key)) {
     return res.json({ received: true, duplicate: true });
   }

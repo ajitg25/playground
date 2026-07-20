@@ -28,9 +28,8 @@ app.use(express.json());
 /**
  * Resend webhook receiver.
  *
- * Resend emits an event per message lifecycle transition. We use these to keep
- * each contact's deliverability status in sync so we never waste sends on
- * addresses that already succeeded elsewhere.
+ * Resend emits an event per message lifecycle transition; we record them
+ * against each contact.
  *
  * https://resend.com/docs/dashboard/webhooks/event-types
  */
@@ -65,9 +64,6 @@ app.post('/webhook', (req, res) => {
 
 /**
  * Broadcast a message to every active contact.
- *
- * Bounced / complained contacts are excluded so we protect our sender
- * reputation and stay off blocklists.
  */
 app.post('/send', async (req, res) => {
   const { subject, html } = req.body || {};

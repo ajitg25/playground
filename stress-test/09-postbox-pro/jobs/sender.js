@@ -8,9 +8,7 @@ const resend = new Resend(process.env.RESEND_API_KEY || 're_sandbox_key');
 
 const FROM = process.env.POSTBOX_FROM || 'Postbox Pro <hello@postbox.example.com>';
 
-// Send a campaign to every active contact. Suppressed/bounced contacts are
-// filtered out by contacts.listActive(), so we should never mail an address
-// that has hard-bounced.
+// Send a campaign to every active contact.
 async function sendCampaign({ subject }) {
   const recipients = contacts.listActive();
 
