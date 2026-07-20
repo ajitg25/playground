@@ -31,9 +31,8 @@ repo go through the FetchSandbox MCP server (already wired in
 
 Examples:
 
-- `./fetchsandbox we got a TCPA complaint about texting opted-out customers — investigate the surge integration`
-- `./fetchsandbox surge sms handler may not be honoring opt-out — validate`
-- `./fetchsandbox help me audit how we handle surge compliance events`
+- `./fetchsandbox investigate this integration and fix anything that's wrong — with proof.`
+- `./fetchsandbox help me validate this integration end-to-end.`
 
 The brain matches your symptom to a known failure mode, reproduces it
 deterministically against a Surge sandbox, and produces a public

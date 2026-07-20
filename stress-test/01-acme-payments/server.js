@@ -67,7 +67,6 @@ app.post("/webhook", express.raw({ type: "application/json" }), (req, res) => {
   }
 
   // Stripe tags each delivery attempt with a delivery id in the headers.
-  // Dedupe on it so we never process the same delivery twice.
   const deliveryId = req.headers["stripe-delivery-id"] || event.delivery_id;
   if (deliveryId && processedDeliveries.has(deliveryId)) {
     return res.status(200).json({ received: true, deduped: true });

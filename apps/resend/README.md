@@ -31,9 +31,8 @@ repo go through the FetchSandbox MCP server (already wired in
 
 Examples:
 
-- `./fetchsandbox we're seeing user emails go to bounce status without us doing anything — investigate the resend integration`
-- `./fetchsandbox resend webhook handler may be ignoring bounce events — validate`
-- `./fetchsandbox help me audit how we handle resend deliverability events`
+- `./fetchsandbox investigate this integration and fix anything that's wrong — with proof.`
+- `./fetchsandbox help me validate this integration end-to-end.`
 
 The brain matches your symptom to a known failure mode, reproduces it
 deterministically against a Resend sandbox, and produces a public

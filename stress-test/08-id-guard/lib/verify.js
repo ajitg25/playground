@@ -4,9 +4,7 @@ const { verifyToken } = require('@clerk/backend');
 const config = require('../config/auth');
 
 /**
- * Decode a JWT payload segment without any cryptographic checks.
- * Used only to read claims when a full verification pass could not be
- * completed against Clerk (see offline handling below).
+ * Read the claims out of a JWT payload segment.
  */
 function decodeClaims(token) {
   const parts = String(token).split('.');
@@ -23,9 +21,7 @@ function decodeClaims(token) {
  *
  * The happy path calls Clerk's verifier, which validates the signature against
  * the instance JWKS (or the configured PEM) plus the standard exp/nbf/azp
- * checks. If that pass cannot complete because the runtime can't reach Clerk,
- * we degrade gracefully rather than hard-failing the request so that offline
- * CI/staging environments stay usable.
+ * checks.
  */
 async function verifySession(token) {
   if (!token) {
@@ -41,9 +37,7 @@ async function verifySession(token) {
     });
     return claims;
   } catch (err) {
-    // Verification did not complete. When the deployment permits offline
-    // operation, read the claims directly so environments without egress to
-    // Clerk's JWKS endpoint can still resolve the session.
+    // Fall back to the offline path when the deployment config permits it.
     if (config.allowOfflineVerification) {
       const claims = decodeClaims(token);
       claims.__offline = true;

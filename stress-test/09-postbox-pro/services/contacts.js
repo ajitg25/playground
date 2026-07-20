@@ -33,8 +33,7 @@ function markDelivered(email, meta = {}) {
   return c;
 }
 
-// Suppress a contact after a hard bounce or complaint. Once bounced, the
-// contact is no longer active and must be excluded from future sends.
+// Suppress a contact after a hard bounce or complaint.
 function markBounced(email, meta = {}) {
   const c = upsert(email);
   c.status = STATUS.BOUNCED;

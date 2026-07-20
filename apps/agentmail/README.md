@@ -31,9 +31,8 @@ repo go through the FetchSandbox MCP server (already wired in
 
 Examples:
 
-- `./fetchsandbox agentmail webhook may be accepting unsigned events — investigate`
-- `./fetchsandbox we got a fake customer message via the agentmail webhook — audit our integration`
-- `./fetchsandbox help me validate the agentmail webhook signature handling end-to-end`
+- `./fetchsandbox investigate this integration and fix anything that's wrong — with proof.`
+- `./fetchsandbox help me validate this integration end-to-end.`
 
 The brain matches your symptom to a known failure mode, reproduces it
 deterministically against an AgentMail sandbox, and produces a public
