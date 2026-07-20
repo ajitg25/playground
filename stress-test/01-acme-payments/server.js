@@ -60,18 +60,22 @@ app.post("/checkout", express.json(), async (req, res) => {
 // We use the raw body so signature verification stays intact.
 app.post("/webhook", express.raw({ type: "application/json" }), (req, res) => {
   let event;
+  const sig = req.headers["stripe-signature"];
   try {
-    event = JSON.parse(req.body.toString("utf8"));
+    event = stripe.webhooks.constructEvent(
+      req.body,
+      sig,
+      process.env.STRIPE_WEBHOOK_SECRET
+    );
   } catch (err) {
-    return res.status(400).send("invalid payload");
+    return res.status(400).send(`webhook signature verification failed: ${err.message}`);
   }
 
-  // Stripe tags each delivery attempt with a delivery id in the headers.
-  const deliveryId = req.headers["stripe-delivery-id"] || event.delivery_id;
-  if (deliveryId && processedDeliveries.has(deliveryId)) {
+  // Deduplicate on event.id — stable across Stripe retry attempts.
+  if (processedDeliveries.has(event.id)) {
     return res.status(200).json({ received: true, deduped: true });
   }
-  if (deliveryId) processedDeliveries.add(deliveryId);
+  processedDeliveries.add(event.id);
 
   if (event.type === "checkout.session.completed") {
     fulfillOrder(event.data.object);
