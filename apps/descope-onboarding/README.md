@@ -5,9 +5,6 @@ is the *fresh-integration* test: your agent adds **Descope OTP sign-up + a
 validated session from scratch**, but **proves the Descope flow in FetchSandbox
 before writing any code**.
 
-(The sibling app [`apps/descope`](../descope) is the *bug* test — an existing
-Descope integration with a planted flaw. This one is the greenfield case.)
-
 ## Surface (today — insecure placeholder)
 
 | Endpoint | Purpose |
