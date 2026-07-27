@@ -38,7 +38,6 @@ class SignupReq(BaseModel):
 
 
 def _decode_clerk_jwt(token: str) -> dict:
-    """Decode Clerk session JWT. Signature verification omitted — see clerk app."""
     return jwt.decode(token, options={"verify_signature": False})
 
 
@@ -65,7 +64,6 @@ def signup(body: SignupReq) -> dict:
             "email_status": "active",
         }
 
-    # Create Stripe Customer on first signup.
     if not users[user_id].get("stripe_customer_id"):
         customer = stripe.Customer.create(
             email=email,
@@ -73,7 +71,6 @@ def signup(body: SignupReq) -> dict:
         )
         users[user_id]["stripe_customer_id"] = customer["id"]
 
-    # Send welcome email.
     if users[user_id]["email_status"] == "active":
         resend.Emails.send({
             "from": "acme@acmepro.com",
@@ -109,9 +106,6 @@ def upgrade(authorization: str = Header(None)) -> dict:
     if not user:
         raise HTTPException(404, "User not found — sign up first")
 
-    # BUG 2: always creates a new Stripe Customer on every upgrade call,
-    # ignoring the existing stripe_customer_id stored at signup.
-    # Fix: check user.get("stripe_customer_id") and reuse if present.
     customer = stripe.Customer.create(
         email=user["email"],
         metadata={"clerk_user_id": user_id},
@@ -139,14 +133,7 @@ def get_user(user_id: str) -> dict:
 # ---------------------------------------------------------------------------
 
 @app.post("/clerk-webhook")
-async def clerk_webhook(
-    request: Request,
-    svix_signature: str = Header(None),
-) -> dict:
-    # BUG 1: no Svix signature verification — any caller can POST fake events.
-    # An attacker can send a fake user.deleted event to cancel a real user's
-    # Stripe subscription. Fix: verify svix-id, svix-timestamp, svix-signature
-    # headers against CLERK_WEBHOOK_SECRET before processing.
+async def clerk_webhook(request: Request) -> dict:
     payload = await request.json()
     event_type = payload.get("type", "")
     data = payload.get("data", {})
@@ -165,9 +152,6 @@ async def clerk_webhook(
             }
 
     elif event_type == "user.deleted":
-        # BUG 5: Clerk sends the user ID under data["id"], not data["user_id"].
-        # This lookup always returns None — the subscription is never cancelled.
-        # Fix: user_id = data.get("id")
         user_id = data.get("user_id")
         user = users.get(user_id)
         if user and user.get("stripe_subscription_id"):
@@ -195,9 +179,6 @@ async def stripe_webhook(
 
     if event_type == "customer.subscription.updated":
         customer_id = obj["customer"]
-        # BUG 3: looks up user by "stripe_id" — the actual field is "stripe_customer_id".
-        # user is always None, so role is never promoted to "pro" after payment.
-        # Fix: u.get("stripe_customer_id") == customer_id
         user = next(
             (u for u in users.values() if u.get("stripe_id") == customer_id),
             None,
@@ -207,12 +188,6 @@ async def stripe_webhook(
 
     elif event_type == "invoice.payment_failed":
         invoice = obj
-        # BUG 4: invoice["customer_email"] is only populated when the Stripe
-        # Customer was created with an explicit email AND Stripe copies it onto
-        # the invoice — which is not guaranteed. In practice this is often None,
-        # so the Resend call fails or sends to a null address.
-        # Fix: look up email from users store by matching invoice["customer"]
-        # against each user's stripe_customer_id.
         customer_email = invoice.get("customer_email")
         resend.Emails.send({
             "from": "acme@acmepro.com",
